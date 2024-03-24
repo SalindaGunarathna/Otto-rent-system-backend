@@ -1,4 +1,4 @@
-package com.ottorentservice.ottorentbackend;
+package com.cttorentsystem.ottorentbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
