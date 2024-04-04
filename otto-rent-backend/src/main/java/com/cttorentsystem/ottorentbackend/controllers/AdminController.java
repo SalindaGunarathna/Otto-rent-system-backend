@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/admins")
@@ -33,6 +35,25 @@ public class AdminController {
         AdminDto adminDto = adminService.getAdminById(adminId);
         return ResponseEntity.ok(adminDto);
     }
+
+
+
+    // Get all admin methode
+
+    @GetMapping
+    public ResponseEntity<List<AdminDto>> getAllAdmins() {
+        List<AdminDto> admins = adminService.getAllAdmins();
+        return ResponseEntity.ok(admins);
+    }
+
+
+    @PutMapping("/{adminId}")
+    public ResponseEntity<AdminDto> updateAdmin(@PathVariable Long adminId , @RequestBody AdminDto adminDto){
+        AdminDto updateAdmin  = adminService.updateAdnimin(adminId,adminDto);
+        return ResponseEntity.ok(updateAdmin);
+    }
+
+
 
 
 

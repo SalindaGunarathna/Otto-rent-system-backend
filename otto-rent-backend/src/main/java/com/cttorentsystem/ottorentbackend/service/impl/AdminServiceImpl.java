@@ -9,6 +9,8 @@ import com.cttorentsystem.ottorentbackend.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
@@ -36,4 +38,33 @@ public class AdminServiceImpl implements AdminService {
                         new ResourceNotFoundException("Admin not found with id : " + adminId));
         return  AdminMapper.mapToAdminDto(admin);
     }
+
+    @Override
+    public List<AdminDto> getAllAdmins() {
+
+        List<Admin> adminList = adminReporsitory.findAll();
+
+        return adminList.stream().map(AdminMapper::mapToAdminDto).toList();
+    }
+
+    @Override
+    public AdminDto updateAdnimin(Long adminId, AdminDto updateAdmin) {
+
+        Admin admin = adminReporsitory.findById(adminId).orElseThrow(() ->
+                new ResourceNotFoundException("Admin not found with id : " + adminId));
+
+        admin.setEmail(updateAdmin.getEmail());
+        admin.setFirstName(updateAdmin.getFirstName());
+        admin.setLastName(updateAdmin.getLastName());
+        admin.setPhoneNO(updateAdmin.getPhoneNO());
+        admin.setPassword(updateAdmin.getPassword());
+        admin.setAddress(updateAdmin.getAddress());
+        admin.setProfilePic(updateAdmin.getProfilePic());
+       Admin upDaterdAdmin = adminReporsitory.save(admin);
+
+
+        return AdminMapper.mapToAdminDto(upDaterdAdmin);
+    }
+
+
 }
