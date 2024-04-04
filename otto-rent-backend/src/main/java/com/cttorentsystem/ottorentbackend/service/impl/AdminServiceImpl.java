@@ -66,5 +66,16 @@ public class AdminServiceImpl implements AdminService {
         return AdminMapper.mapToAdminDto(upDaterdAdmin);
     }
 
+    @Override
+    public AdminDto deleteAdmin(Long adminId) {
+
+        Admin admin = adminReporsitory.findById(adminId).orElseThrow(()->
+                new ResourceNotFoundException("Admin Not found with user Id "+ adminId)
+        );
+
+        adminReporsitory.deleteById(adminId);
+        return null;
+    }
+
 
 }

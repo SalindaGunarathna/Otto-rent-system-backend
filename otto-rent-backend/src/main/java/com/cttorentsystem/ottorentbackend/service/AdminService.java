@@ -14,4 +14,6 @@ public interface AdminService {
 
     AdminDto updateAdnimin(Long adminId,AdminDto updateAdmin);
 
+    AdminDto deleteAdmin (Long adminId);
+
 }
