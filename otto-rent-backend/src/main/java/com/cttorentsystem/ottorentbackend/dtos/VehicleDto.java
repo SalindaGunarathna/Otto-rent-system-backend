@@ -1,6 +1,6 @@
-package com.cttorentsystem.ottorentbackend.entity;
+package com.cttorentsystem.ottorentbackend.dtos;
 
-import jakarta.persistence.*;
+import com.cttorentsystem.ottorentbackend.entity.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,16 +8,13 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@Table(name = "vehicle")
-public class Vehicle {
+@AllArgsConstructor
+public class VehicleDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long vehicleId;
     private String vehiclePrice;
     private String chassisNumber;
@@ -28,58 +25,38 @@ public class Vehicle {
     private String color;
     private int seatingCapacity;
     private String condition;
-
-    @Embedded
     private Dimensions dimensions;
-
     private int cylinderCapacity;
-    @Enumerated(EnumType.STRING)
-    private FuelType fuelType;
+    private Vehicle.FuelType fuelType;
     private String manufacturedCountry;
     private boolean assembled;
-
-    @Enumerated(EnumType.STRING)
-    private VehicleType vehicleType;
-
+    private Vehicle.VehicleType vehicleType;
     private String brand;
     private String style;
     private String model;
     private int manufacturedYear;
+    private List<String> albumUrls;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Photo> album;
 
-    @AllArgsConstructor
-    @NoArgsConstructor
+
+    // Embedded class for Dimensions
     @Getter
     @Setter
-    @Embeddable
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Dimensions {
         private double length;
         private double height;
         private double width;
-
-        // Constructor, getters, and setters
     }
 
+    // Enum for FuelType
     public enum FuelType {
         Petrol, Diesel, Electric, Hybrid, CNG
     }
 
+    // Enum for VehicleType
     public enum VehicleType {
         car, bike, van, truck, cab
-    }
-
-    @Entity
-    @Table(name = "photo")
-    public static class Photo {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-
-        private String photoURL;
-       // private String photoID;
-
-        // Constructor, getters, and setters
     }
 }
