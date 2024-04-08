@@ -71,6 +71,10 @@ public class Vehicle {
     }
 
     @Entity
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Table(name = "photo")
     public static class Photo {
         @Id
