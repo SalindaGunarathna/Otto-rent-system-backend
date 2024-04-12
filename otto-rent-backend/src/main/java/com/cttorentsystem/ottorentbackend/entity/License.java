@@ -21,7 +21,7 @@ public class License {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicleId")
-    private Vehicle vehicle;
+    private Vehicle vehicleId;
     private String licenseNumber;
     private Date expiryDate;
     private Date issueDate;
