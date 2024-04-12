@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,6 +49,7 @@ public class Vehicle {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Photo> album;
+
 
     @AllArgsConstructor
     @NoArgsConstructor

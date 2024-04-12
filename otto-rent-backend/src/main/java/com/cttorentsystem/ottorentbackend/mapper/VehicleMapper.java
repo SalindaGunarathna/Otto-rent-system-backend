@@ -70,6 +70,8 @@ public class VehicleMapper {
         vehicle.setManufacturedYear(dto.getManufacturedYear());
         vehicle.setAlbum(mapToPhotoList(dto.getAlbumUrls()));
 
+        System.out.println("lbum " + dto.getAlbumUrls());// Print the list of URLs.
+
         return vehicle;
     }
 
@@ -82,6 +84,7 @@ public class VehicleMapper {
 
     private static List<Vehicle.Photo> mapToPhotoList(List<String> albumUrls) {
         if (albumUrls == null) {
+            System.out.println("albumUrls in empty " );
             return null;
         }
         return albumUrls.stream()
