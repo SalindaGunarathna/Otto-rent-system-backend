@@ -1,5 +1,6 @@
 package com.cttorentsystem.ottorentbackend.dtos;
 
+import com.cttorentsystem.ottorentbackend.entity.Vehicle;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class LicenceDto {
 
-    private Long licenseId;
-    private Long vehicleId;
+    private Long licenceId;
+    private Vehicle vehicleId;
     private String licenseNumber;
     private Date expiryDate;
     private Date issueDate;

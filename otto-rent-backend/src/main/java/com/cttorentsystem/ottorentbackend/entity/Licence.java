@@ -13,11 +13,11 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "license")
-public class License {
+@Table(name = "licence")
+public class Licence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long licenseId;
+    private Long licenceId;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicleId")
