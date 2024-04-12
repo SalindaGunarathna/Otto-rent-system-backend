@@ -5,9 +5,7 @@ import com.cttorentsystem.ottorentbackend.service.VehicleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -27,5 +25,11 @@ public class VehicleController {
         return new  ResponseEntity<> (saveVehicle, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{vehicleId}")
+    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("vehicleId") Long vehicleId) {
 
+        VehicleDto vehicleDto = vehicleService.getVehicleById(vehicleId);
+        return ResponseEntity.ok(vehicleDto);
+
+    }
 }

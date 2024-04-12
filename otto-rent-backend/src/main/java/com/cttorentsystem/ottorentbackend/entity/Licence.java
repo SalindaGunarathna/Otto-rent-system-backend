@@ -1,5 +1,6 @@
 package com.cttorentsystem.ottorentbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Licence {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicleId")
+    @JsonIgnore
     private Vehicle vehicleId;
     private String licenseNumber;
     private Date expiryDate;

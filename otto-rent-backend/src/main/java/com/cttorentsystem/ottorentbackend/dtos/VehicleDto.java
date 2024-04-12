@@ -1,11 +1,13 @@
 package com.cttorentsystem.ottorentbackend.dtos;
 
+import com.cttorentsystem.ottorentbackend.entity.Licence;
 import com.cttorentsystem.ottorentbackend.entity.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -36,6 +38,7 @@ public class VehicleDto {
     private String model;
     private int manufacturedYear;
     private List<String> albumUrls;
+    private List<Licence> licenses = new ArrayList<>();
 
 
 

@@ -1,5 +1,6 @@
 package com.cttorentsystem.ottorentbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,6 +50,11 @@ public class Vehicle {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Photo> album;
+
+    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Licence> licenses = new ArrayList<>();
+
 
 
     @AllArgsConstructor
