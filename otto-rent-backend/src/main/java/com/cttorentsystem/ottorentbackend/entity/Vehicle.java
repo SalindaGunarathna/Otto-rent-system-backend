@@ -55,6 +55,11 @@ public class Vehicle {
     @JsonIgnore
     private List<Licence> licenses = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "service_id", referencedColumnName = "serviceId")
+    @JsonIgnore
+    private ServiceDetails serviceDetails;
+
 
 
     @AllArgsConstructor
@@ -90,8 +95,6 @@ public class Vehicle {
         private Long id;
 
         private String photoURL;
-       // private String photoID;
 
-        // Constructor, getters, and setters
     }
 }
