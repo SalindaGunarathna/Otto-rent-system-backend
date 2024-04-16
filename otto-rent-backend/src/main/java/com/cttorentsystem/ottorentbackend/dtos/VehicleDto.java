@@ -1,5 +1,6 @@
 package com.cttorentsystem.ottorentbackend.dtos;
 
+import com.cttorentsystem.ottorentbackend.entity.InsuranceDetails;
 import com.cttorentsystem.ottorentbackend.entity.Licence;
 import com.cttorentsystem.ottorentbackend.entity.ServiceDetails;
 import com.cttorentsystem.ottorentbackend.entity.Vehicle;
@@ -41,6 +42,7 @@ public class VehicleDto {
     private List<String> albumUrls;
     private List<Licence> licenses = new ArrayList<>();
     private List<ServiceDetails> serviceDetails = new ArrayList<>();
+    private List<InsuranceDetails> insuranceDetails = new ArrayList<>();
 
 
 

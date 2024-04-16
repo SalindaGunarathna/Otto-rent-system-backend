@@ -34,6 +34,7 @@ public class VehicleMapper {
         dto.setManufacturedYear(vehicle.getManufacturedYear());
         dto.setAlbumUrls(vehicle.getAlbum().stream().map(photo -> photo.getPhotoURL()).collect(Collectors.toList()));
         dto.setServiceDetails(vehicle.getServiceDetails());
+        dto.setInsuranceDetails(vehicle.getInsuranceDetails());
         return dto;
     }
 
@@ -73,8 +74,9 @@ public class VehicleMapper {
         vehicle.setAlbum(mapToPhotoList(dto.getAlbumUrls()));
         vehicle.setLicenses(dto.getLicenses());
         vehicle.setServiceDetails(dto.getServiceDetails());
+        vehicle.setInsuranceDetails(dto.getInsuranceDetails());
 
-        System.out.println("lbum " + dto.getAlbumUrls());// Print the list of URLs.
+
 
         return vehicle;
     }
