@@ -1,2 +1,8 @@
-package com.cttorentsystem.ottorentbackend.service;public interface ServiceDetailsService {
+package com.cttorentsystem.ottorentbackend.service;
+
+import com.cttorentsystem.ottorentbackend.dtos.ServiceDetailsDto;
+
+public interface ServiceDetailsService {
+
+    ServiceDetailsDto createServiceDetails(ServiceDetailsDto serviceDetailsDto);
 }

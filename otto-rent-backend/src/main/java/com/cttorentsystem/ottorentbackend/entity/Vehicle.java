@@ -55,10 +55,15 @@ public class Vehicle {
     @JsonIgnore
     private List<Licence> licenses = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "service_id", referencedColumnName = "serviceId")
+
+    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL)
     @JsonIgnore
-    private ServiceDetails serviceDetails;
+    private List<ServiceDetails> ServiceDetails = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicleDetails", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<InsuranceDetails> insuranceDetails = new ArrayList<>();
+
 
 
 

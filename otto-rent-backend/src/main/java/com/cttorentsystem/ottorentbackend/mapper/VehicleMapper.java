@@ -33,6 +33,7 @@ public class VehicleMapper {
         dto.setLicenses(vehicle.getLicenses());
         dto.setManufacturedYear(vehicle.getManufacturedYear());
         dto.setAlbumUrls(vehicle.getAlbum().stream().map(photo -> photo.getPhotoURL()).collect(Collectors.toList()));
+        dto.setServiceDetails(vehicle.getServiceDetails());
         return dto;
     }
 
@@ -71,6 +72,7 @@ public class VehicleMapper {
         vehicle.setManufacturedYear(dto.getManufacturedYear());
         vehicle.setAlbum(mapToPhotoList(dto.getAlbumUrls()));
         vehicle.setLicenses(dto.getLicenses());
+        vehicle.setServiceDetails(dto.getServiceDetails());
 
         System.out.println("lbum " + dto.getAlbumUrls());// Print the list of URLs.
 
