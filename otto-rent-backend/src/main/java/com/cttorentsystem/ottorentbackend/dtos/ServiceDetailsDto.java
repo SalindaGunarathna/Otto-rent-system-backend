@@ -1,13 +1,14 @@
 package com.cttorentsystem.ottorentbackend.dtos;
 
-import com.cttorentsystem.ottorentbackend.entity.ChangedPart;
+import com.cttorentsystem.ottorentbackend.entity.Vehicle;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,18 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 public class ServiceDetailsDto {
 
-    private Long serviceId;
-    private Date serviceDate;
-    private String serviceType;
+    private Long serviceDetailsId;
+    private  String serviceDate;
     private String serviceCenterName;
-    private String serviceCenterAddress;
-    private String serviceCenterPhone;
-    private String serviceCenterEmail;
-    private String travelDistance;
-    private String serviceCost;
-    private String serviceDoneBy;
-    private Date serviceCompletionDate;
-    private List<ChangedPart> changedParts;
-    private VehicleDto vehicle;
-    private String serviceDescription;
+    private String serviceCenterLocation;
+    private  String travelDistance;
+    private  String serviceCost;
+    private Vehicle vehicleId;
+
+
+
+
 }
