@@ -83,4 +83,13 @@ public class VehicleServiceImpl implements VehicleService {
 
         return VehicleMapper.mapToVehicleDto(upDaterdVehicle);
     }
+
+     public VehicleDto deleteVehicle(Long vehicleId) {
+
+        Vehicle vehicle = vehicleReporsitory.findById(vehicleId).orElseThrow(() ->
+                new ResourceNotFoundException("Vehicle not found with id : " + vehicleId));
+        vehicleReporsitory.delete(vehicle);
+        return VehicleMapper.mapToVehicleDto(vehicle);
+     }
+
 }
