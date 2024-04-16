@@ -9,6 +9,10 @@ import com.cttorentsystem.ottorentbackend.service.VehicleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static com.cttorentsystem.ottorentbackend.mapper.VehicleMapper.mapToPhotoList;
+
 @Service
 @AllArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
@@ -33,5 +37,50 @@ public class VehicleServiceImpl implements VehicleService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Vehicle not found with id : " + vehicleId));
         return  VehicleMapper.mapToVehicleDto(vehicle);
+    }
+
+    @Override
+    public List<VehicleDto> getAllVehicles() {
+
+        List<Vehicle> vehicleList = vehicleReporsitory.findAll();
+
+        return vehicleList.stream().map(VehicleMapper::mapToVehicleDto).toList();
+
+    }
+
+    @Override
+    public VehicleDto updateVehicle(VehicleDto vehicleDto, Long vehicleId) {
+
+        Vehicle vehicle = vehicleReporsitory.findById(vehicleId).orElseThrow(() ->
+                new ResourceNotFoundException("Vehicle not found with id : " + vehicleId));
+
+        vehicle.setChassisNumber(vehicleDto.getChassisNumber());
+        vehicle.setEngineNo(vehicleDto.getEngineNo());
+        vehicle.setVehiclePrice(vehicleDto.getVehiclePrice());
+        vehicle.setVehicleState(vehicleDto.getVehicleState());
+        vehicle.setCompanyName(vehicleDto.getCompanyName());
+        vehicle.setNumberOfDoors(vehicleDto.getNumberOfDoors());
+        vehicle.setColor(vehicleDto.getColor());
+        vehicle.setSeatingCapacity(vehicleDto.getSeatingCapacity());
+        vehicle.setCondition(vehicleDto.getCondition());
+        vehicle.setDimensions(VehicleMapper.mapToDimensions(vehicleDto.getDimensions()));
+        vehicle.setCylinderCapacity(vehicleDto.getCylinderCapacity());
+        vehicle.setFuelType(vehicleDto.getFuelType());
+        vehicle.setManufacturedCountry(vehicleDto.getManufacturedCountry());
+        vehicle.setAssembled(vehicleDto.isAssembled());
+        vehicle.setVehicleType(vehicleDto.getVehicleType());
+        vehicle.setBrand(vehicleDto.getBrand());
+        vehicle.setStyle(vehicleDto.getStyle());
+        vehicle.setModel(vehicleDto.getModel());
+        vehicle.setLicenses(vehicleDto.getLicenses());
+        vehicle.setManufacturedYear(vehicleDto.getManufacturedYear());
+        vehicle.setAlbum(mapToPhotoList(vehicleDto.getAlbumUrls()));
+        vehicle.setServiceDetails(vehicleDto.getServiceDetails());
+        vehicle.setInsuranceDetails(vehicleDto.getInsuranceDetails());
+
+
+        Vehicle upDaterdVehicle = vehicleReporsitory.save(vehicle);
+
+        return VehicleMapper.mapToVehicleDto(upDaterdVehicle);
     }
 }

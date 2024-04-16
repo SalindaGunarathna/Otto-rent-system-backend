@@ -32,4 +32,19 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleDto);
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<VehicleDto>> getAllVehicles() {
+        List<VehicleDto> vehicles = vehicleService.getAllVehicles();
+        return ResponseEntity.ok(vehicles);
+    }
+
+    @PostMapping("/{vehicleId}")
+    public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("vehicleId") Long vehicleId , @RequestBody VehicleDto vehicleDto){
+        VehicleDto updateVehicle  = vehicleService.updateVehicle(vehicleDto,vehicleId);
+        return ResponseEntity.ok(updateVehicle);
+    }
+
+
+
 }

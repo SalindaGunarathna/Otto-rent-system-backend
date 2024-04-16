@@ -81,14 +81,14 @@ public class VehicleMapper {
         return vehicle;
     }
 
-    private static Vehicle.Dimensions mapToDimensions(VehicleDto.Dimensions dimensions) {
+    public static Vehicle.Dimensions mapToDimensions(VehicleDto.Dimensions dimensions) {
         if (dimensions == null) {
             return null;
         }
         return new Vehicle.Dimensions(dimensions.getLength(), dimensions.getHeight(), dimensions.getWidth());
     }
 
-    private static List<Vehicle.Photo> mapToPhotoList(List<String> albumUrls) {
+    public static List<Vehicle.Photo> mapToPhotoList(List<String> albumUrls) {
         if (albumUrls == null) {
             System.out.println("albumUrls in empty " );
             return null;
