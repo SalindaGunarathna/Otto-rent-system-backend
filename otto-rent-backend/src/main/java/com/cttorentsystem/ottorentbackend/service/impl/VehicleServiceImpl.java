@@ -92,4 +92,17 @@ public class VehicleServiceImpl implements VehicleService {
         return VehicleMapper.mapToVehicleDto(vehicle);
      }
 
+    public List<VehicleDto> suggestVehicle(Vehicle.VehicleType vehicleType, Vehicle.FuelType fuelType, int seatingCapacity) {
+
+
+        List<Vehicle> matchingVehicles = vehicleReporsitory.findBySuggestVehicle(seatingCapacity, fuelType, vehicleType);
+        if (matchingVehicles.isEmpty()) {
+            throw new ResourceNotFoundException("No vehicles found with the provided criteria.");
+        }
+        return matchingVehicles.stream().map(VehicleMapper::mapToVehicleDto).toList();
+
+
+    }
+
+
 }

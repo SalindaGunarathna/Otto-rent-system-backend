@@ -1,5 +1,6 @@
 package com.cttorentsystem.ottorentbackend.controllers;
 
+import com.cttorentsystem.ottorentbackend.dtos.SuggestVehicleRequest;
 import com.cttorentsystem.ottorentbackend.dtos.VehicleDto;
 import com.cttorentsystem.ottorentbackend.service.VehicleService;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,26 @@ public class VehicleController {
     public ResponseEntity<String> deleteVehicle(@PathVariable("vehicleId") Long vehicleId){
         vehicleService.deleteVehicle(vehicleId);
         return ResponseEntity.ok("Vehicle deleted successfully");
+    }
+
+
+    @GetMapping("/suggestVehicle")
+    public ResponseEntity<?> suggestVehicle(@RequestBody SuggestVehicleRequest suggestVehicleRequest){
+
+    try {
+          List<VehicleDto> vehicles = vehicleService.suggestVehicle(
+                  suggestVehicleRequest.getVehicleType(),
+                  suggestVehicleRequest.getFuelType(),
+                  suggestVehicleRequest.getSeatingCapacity()
+          );
+
+        return ResponseEntity.ok(vehicles);
+
+    } catch (Exception e) {
+          Logger.getLogger(VehicleController.class.getName()).warning(e.getMessage());
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred: " + e.getMessage());
+    }
+
     }
 
 
