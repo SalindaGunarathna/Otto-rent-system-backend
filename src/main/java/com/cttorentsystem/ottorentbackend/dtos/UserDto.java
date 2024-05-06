@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,6 +28,6 @@ public class UserDto {
     private String phoneNO;
     private String address;
     private User.Role role;
-    private List<Order> orders;
+    private List<Order> orders=new ArrayList<>();
 
 }

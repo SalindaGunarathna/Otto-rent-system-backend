@@ -31,9 +31,9 @@ public class Order {
     private String paymentStatus;
     private String rentalDates;
 
-    @OneToMany(mappedBy = "vehicleId" , cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Vehicle> vehicles;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicles;
 
 
     @ManyToOne

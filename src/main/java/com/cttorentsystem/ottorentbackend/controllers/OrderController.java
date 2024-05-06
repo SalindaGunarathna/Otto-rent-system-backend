@@ -24,11 +24,15 @@ public class OrderController {
        return  new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{orderId}")
+    @PutMapping("/{orderId}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable("orderId") Long orderId, @RequestBody OrderDto orderDto) {
         OrderDto updatedOrder = orderService.updateOrder(orderDto, orderId);
+        if (updatedOrder != null) {
+            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        return ResponseEntity.ok(updatedOrder);
     }
 
     @GetMapping("/{orderId}")
