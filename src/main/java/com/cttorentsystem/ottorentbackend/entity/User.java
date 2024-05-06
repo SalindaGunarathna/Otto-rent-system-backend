@@ -1,22 +1,26 @@
 package com.cttorentsystem.ottorentbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "admin")
-public class Admin {
+@Table(name = "Users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -31,10 +35,25 @@ public class Admin {
     private String password;
 
     @Column(name = "profile_pic")
-    private  String profilePic;
+    private String profilePic;
+
     @Column(name = "phone_no")
     private String phoneNO;
+
     @Column(name = "address")
     private String address;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
+
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orders;
+
+
+    public enum Role {
+        Customer, Admin
+    }
 }

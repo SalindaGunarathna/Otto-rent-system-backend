@@ -84,6 +84,8 @@ public class VehicleServiceImpl implements VehicleService {
         return VehicleMapper.mapToVehicleDto(upDaterdVehicle);
     }
 
+
+    @Override
      public VehicleDto deleteVehicle(Long vehicleId) {
 
         Vehicle vehicle = vehicleReporsitory.findById(vehicleId).orElseThrow(() ->
@@ -92,6 +94,7 @@ public class VehicleServiceImpl implements VehicleService {
         return VehicleMapper.mapToVehicleDto(vehicle);
      }
 
+     @Override
     public List<VehicleDto> suggestVehicle(Vehicle.VehicleType vehicleType, Vehicle.FuelType fuelType, int seatingCapacity) {
 
 

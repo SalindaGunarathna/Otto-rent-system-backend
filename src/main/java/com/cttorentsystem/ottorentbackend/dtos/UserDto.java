@@ -1,18 +1,24 @@
 package com.cttorentsystem.ottorentbackend.dtos;
 
 
+import com.cttorentsystem.ottorentbackend.entity.Order;
+import com.cttorentsystem.ottorentbackend.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
+
+import java.util.List;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminDto {
+public class UserDto {
 
-    private Long id;
+    private Long userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -20,5 +26,7 @@ public class AdminDto {
     private String profilePic;
     private String phoneNO;
     private String address;
+    private User.Role role;
+    private List<Order> orders;
 
 }
