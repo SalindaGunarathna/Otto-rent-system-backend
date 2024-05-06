@@ -2,8 +2,13 @@ package com.cttorentsystem.ottorentbackend.controllers;
 
 
 import com.cttorentsystem.ottorentbackend.dtos.OrderDto;
+import com.cttorentsystem.ottorentbackend.entity.Order;
+import com.cttorentsystem.ottorentbackend.service.EmailBodyGenerator;
+import com.cttorentsystem.ottorentbackend.service.EmailService;
 import com.cttorentsystem.ottorentbackend.service.OrderService;
+import com.cttorentsystem.ottorentbackend.service.impl.AdminEmailBody;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +22,24 @@ public class OrderController {
 
     private OrderService orderService;
 
+
+
+
+    private final  EmailService emailService;
+
     @PostMapping
     public ResponseEntity<OrderDto> createOrder( @RequestBody OrderDto orderDto) {
        OrderDto newOrder = orderService.createOrder(orderDto);
+
+
+       EmailController ownerEmailController = new  EmailController("Admin");
+       String emailBody = ownerEmailController.generateEmailBody(newOrder);
+       emailService.sendEmail("salindalakshan99@gmail.com", "New Rent Order", emailBody);
+
+       EmailController customerEmailController = new  EmailController("Customer");
+       String customerEmailBody = customerEmailController.generateEmailBody(newOrder);
+       emailService.sendEmail("salinda.eng@gmail.com", "New Rent Order", customerEmailBody);
+
 
        return  new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
