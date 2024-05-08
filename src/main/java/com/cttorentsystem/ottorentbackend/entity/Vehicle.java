@@ -65,11 +65,6 @@ public class Vehicle {
     private List<InsuranceDetails> insuranceDetails = new ArrayList<>();
 
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-
 
 
     @AllArgsConstructor

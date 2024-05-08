@@ -40,7 +40,7 @@ public class VehicleDto {
     private List<Licence> licenses = new ArrayList<>();
     private List<ServiceDetails> serviceDetails = new ArrayList<>();
     private List<InsuranceDetails> insuranceDetails = new ArrayList<>();
-    private Order order;
+
 
 
 

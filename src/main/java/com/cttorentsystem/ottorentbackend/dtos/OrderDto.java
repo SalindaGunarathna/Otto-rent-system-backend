@@ -26,7 +26,7 @@ public class OrderDto {
     private String paymentStatus;
     private String rentalDates;
 
-    private List<Vehicle> vehicles;
+    private Vehicle vehicles;
 
     private User customer;
 }
