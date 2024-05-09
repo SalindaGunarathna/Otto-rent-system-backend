@@ -11,5 +11,5 @@ public interface EmailBodyGenerator {
 
     String generateEmailBody(OrderDto order);
 
-    String generateEmailBodyforVehicleUpdate(Vehicle vehicle);
+    String generateEmailBodyforVehicleUpdate(Vehicle vehicle,String vehicleStatus);
 }

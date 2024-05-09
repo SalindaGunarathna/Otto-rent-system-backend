@@ -21,6 +21,6 @@ public interface VehicleService {
 
     List<VehicleDto> suggestVehicle(Vehicle.VehicleType vehicleType, Vehicle.FuelType fuelType, int seatingCapacity);
 
-    public void checkNextServiceDateAndNotifyOwner();
+
 
 }

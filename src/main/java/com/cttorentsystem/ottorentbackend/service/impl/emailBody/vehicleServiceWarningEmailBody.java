@@ -1,4 +1,4 @@
-package com.cttorentsystem.ottorentbackend.service.impl;
+package com.cttorentsystem.ottorentbackend.service.impl.emailBody;
 
 import com.cttorentsystem.ottorentbackend.dtos.OrderDto;
 import com.cttorentsystem.ottorentbackend.dtos.VehicleDto;
@@ -23,18 +23,21 @@ public class vehicleServiceWarningEmailBody implements EmailBodyGenerator {
     }
 
     @Override
-    public String generateEmailBodyforVehicleUpdate(Vehicle vehicle) {
+    public String generateEmailBodyforVehicleUpdate(Vehicle vehicle,String vehicleStatus) {
         StringBuilder emailBody = new StringBuilder();
 
         // Add vehicle information to the email body
+        emailBody.append("Dear sir :\n");
+        emailBody.append(" :\n").append(vehicleStatus).append("\n\n");
         emailBody.append("Vehicle Information:\n");
+        emailBody.append("========================================").append("\n");
         emailBody.append("Vehicle ID: ").append(vehicle.getVehicleId()).append("\n");
         emailBody.append("Registration No: ").append(vehicle.getRegistrationNo()).append("\n");
         emailBody.append("Brand: ").append(vehicle.getBrand()).append("\n");
         emailBody.append("Model: ").append(vehicle.getModel()).append("\n");
+        emailBody.append("==========================================").append("\n\n");
         emailBody.append("Next Service Details:\n");
 
-        // Add service details to the email body
         List<ServiceDetails> serviceDetailsList = vehicle.getServiceDetails();
         for (ServiceDetails serviceDetail : serviceDetailsList) {
             emailBody.append("Service Date: ").append(serviceDetail.getServiceDate()).append("\n");
@@ -42,6 +45,9 @@ public class vehicleServiceWarningEmailBody implements EmailBodyGenerator {
             emailBody.append("Next Service Date: ").append(serviceDetail.getNextServiceDate()).append("\n");
             emailBody.append("Next Service Distance: ").append(serviceDetail.getNextServiceDistance()).append("\n\n");
         }
+
+        emailBody.append("Thank you for your cooperation.");
+        emailBody.append(" OTTO Car Sale \n\n");
 
         return emailBody.toString();
     }

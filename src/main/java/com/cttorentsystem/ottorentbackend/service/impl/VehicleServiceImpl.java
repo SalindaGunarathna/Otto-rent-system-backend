@@ -26,7 +26,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     private VehicleReporsitory vehicleReporsitory;
 
-    private final EmailService emailService;
+
 
     @Override
     public VehicleDto createVehicle(VehicleDto vehicleDto) {
@@ -118,45 +118,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
 
-    @Override
-    @Scheduled(cron = "0 */1 * * * *")  // Runs every minute
-    public void checkNextServiceDateAndNotifyOwner() {
-        System.out.println("Function is running...");
 
-        List<Vehicle> vehicles = vehicleReporsitory.findAll();
-        LocalDate currentDate = LocalDate.now();
-
-        System.out.println(currentDate);
-
-        System.out.println(vehicles);
-        for (Vehicle vehicle : vehicles) {
-
-       
-
-            List<ServiceDetails> serviceDetail = vehicle.getServiceDetails();
-
-            if (serviceDetail != null) {
-                System.out.println("Service details found for vehicle: " + vehicle.getBrand());
-                for (ServiceDetails serviceDetails : serviceDetail) {
-                    System.out.println("Processing service details for vehicle: " + serviceDetails.getNextServiceDate());
-                    LocalDate nextServiceDate = serviceDetails.getNextServiceDate();
-                    // Calculate the time difference in days
-                    long daysUntilNextService = ChronoUnit.DAYS.between(currentDate, nextServiceDate);
-                    System.out.println(daysUntilNextService);
-                    // Check if the next service date is within 7 days or behind the current date
-                    if (daysUntilNextService >= 0 && daysUntilNextService <= 7) {
-                        // Send message to owner
-                        String subject = "Service for Warning for vehicle: " + vehicle.getBrand();
-                        EmailController ownerEmailController = new EmailController("Admin-vehicleUpdate");
-                        String emailBody = ownerEmailController.generateEmailBodyforVehicleUpdate(vehicle);
-                        emailService.sendEmail("salindalakshan99@gmail.com", subject, emailBody);
-                    }
-                }
-            } else {
-                System.out.println("No service details found for vehicle: " + vehicle.getBrand());
-            }
-        }
-    }
 
 
 
