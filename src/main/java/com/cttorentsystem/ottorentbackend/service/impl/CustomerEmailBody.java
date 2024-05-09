@@ -1,7 +1,9 @@
 package com.cttorentsystem.ottorentbackend.service.impl;
 
 import com.cttorentsystem.ottorentbackend.dtos.OrderDto;
+import com.cttorentsystem.ottorentbackend.dtos.VehicleDto;
 import com.cttorentsystem.ottorentbackend.entity.Order;
+import com.cttorentsystem.ottorentbackend.entity.Vehicle;
 import com.cttorentsystem.ottorentbackend.service.EmailBodyGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,5 +42,10 @@ public class CustomerEmailBody implements EmailBodyGenerator {
                 order.getOrderStatus()
         );
         return emailBody;
+    }
+
+    @Override
+    public String generateEmailBodyforVehicleUpdate(Vehicle vehicle) {
+        return null;
     }
 }

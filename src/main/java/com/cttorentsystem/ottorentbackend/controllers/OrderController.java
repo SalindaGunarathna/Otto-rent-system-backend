@@ -32,7 +32,7 @@ public class OrderController {
        OrderDto newOrder = orderService.createOrder(orderDto);
 
 
-       EmailController ownerEmailController = new  EmailController("Admin");
+       EmailController ownerEmailController = new  EmailController("Admin-orderUpdate");
        String emailBody = ownerEmailController.generateEmailBody(newOrder);
        emailService.sendEmail("salindalakshan99@gmail.com", "New Rent Order", emailBody);
 

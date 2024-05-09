@@ -1,14 +1,20 @@
 package com.cttorentsystem.ottorentbackend.service.impl;
 
+import com.cttorentsystem.ottorentbackend.controllers.EmailController;
 import com.cttorentsystem.ottorentbackend.dtos.VehicleDto;
+import com.cttorentsystem.ottorentbackend.entity.ServiceDetails;
 import com.cttorentsystem.ottorentbackend.entity.Vehicle;
 import com.cttorentsystem.ottorentbackend.exception.ResourceNotFoundException;
 import com.cttorentsystem.ottorentbackend.mapper.VehicleMapper;
 import com.cttorentsystem.ottorentbackend.repositorys.VehicleReporsitory;
+import com.cttorentsystem.ottorentbackend.service.EmailService;
 import com.cttorentsystem.ottorentbackend.service.VehicleService;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.cttorentsystem.ottorentbackend.mapper.VehicleMapper.mapToPhotoList;
@@ -17,7 +23,9 @@ import static com.cttorentsystem.ottorentbackend.mapper.VehicleMapper.mapToPhoto
 @AllArgsConstructor
 public class VehicleServiceImpl implements VehicleService {
 
-      private VehicleReporsitory vehicleReporsitory;
+    private VehicleReporsitory vehicleReporsitory;
+
+    private final EmailService emailService;
 
     @Override
     public VehicleDto createVehicle(VehicleDto vehicleDto) {
@@ -55,6 +63,7 @@ public class VehicleServiceImpl implements VehicleService {
                 new ResourceNotFoundException("Vehicle not found with id : " + vehicleId));
 
         vehicle.setChassisNumber(vehicleDto.getChassisNumber());
+        vehicle.setRegistrationNo(vehicleDto.getRegistrationNo());
         vehicle.setEngineNo(vehicleDto.getEngineNo());
         vehicle.setVehiclePrice(vehicleDto.getVehiclePrice());
         vehicle.setVehicleState(vehicleDto.getVehicleState());
@@ -104,6 +113,38 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return matchingVehicles.stream().map(VehicleMapper::mapToVehicleDto).toList();
 
+
+    }
+
+    @Override
+    @Scheduled(cron = "0 */5 * * * *")  // Runs at midnight every day
+    public void checkNextServiceDateAndNotifyOwner() {
+
+        System.out.println("funtion is runing good ");
+
+        List<Vehicle> vehicles = vehicleReporsitory.findAll();
+        LocalDate currentDate = LocalDate.now();
+
+
+        for (Vehicle vehicle : vehicles) {
+            for (ServiceDetails serviceDetail : vehicle.getServiceDetails()) {
+                LocalDate nextServiceDate = serviceDetail.getNextServiceDate();
+                // Calculate the time difference
+
+                long daysUntilNextService = java.time.Duration.between(currentDate, nextServiceDate).toDays();
+                // Check if the next service date is within 7 days or behind the current date
+
+                if (daysUntilNextService >= 0 && daysUntilNextService <= 7) {
+                        // Send message to owner
+                        String subject = "Service for Warning for vehicle: " + vehicle.getBrand() ;
+
+                    EmailController ownerEmailController = new  EmailController("Admin-vehicleUpdate");
+                    String emailBody = ownerEmailController.generateEmailBodyforVehicleUpdate(vehicle);
+                    emailService.sendEmail("salindalakshan99@gmail.com", subject, emailBody);
+
+                }
+            }
+        }
 
     }
 
