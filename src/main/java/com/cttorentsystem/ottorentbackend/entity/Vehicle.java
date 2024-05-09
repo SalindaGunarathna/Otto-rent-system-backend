@@ -52,16 +52,16 @@ public class Vehicle {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Photo> album;
 
-    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "vehicleId", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Licence> licenses = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "vehicleId", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "vehicleId", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ServiceDetails> ServiceDetails = new ArrayList<>();
 
-    @OneToMany(mappedBy = "vehicleDetails", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "vehicleDetails", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<InsuranceDetails> insuranceDetails = new ArrayList<>();
 
