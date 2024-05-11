@@ -25,6 +25,9 @@ public class OrderDto {
     private String orderStatus;
     private String paymentStatus;
     private String rentalDates;
+    private int noOfPassengers;
+    private int noOfLuggages;
+    private String description;
 
     private Vehicle vehicles;
 

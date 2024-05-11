@@ -17,6 +17,9 @@ public class OrderMapper {
                 order.getOrderStatus(),
                 order.getPaymentStatus(),
                 order.getRentalDates(),
+                order.getNoOfPassengers(),
+                order.getNoOfLuggages(),
+                order.getDescription(),
                 order.getVehicles(),
                 order.getCustomer()
         );
@@ -34,6 +37,9 @@ public class OrderMapper {
                 orderDto.getOrderStatus(),
                 orderDto.getPaymentStatus(),
                 orderDto.getRentalDates(),
+                orderDto.getNoOfPassengers(),
+                orderDto.getNoOfLuggages(),
+                orderDto.getDescription(),
                 orderDto.getVehicles(),
                 orderDto.getCustomer()
         );
