@@ -27,7 +27,7 @@ public class UserDto {
     private String profilePic;
     private String phoneNO;
     private String address;
-    private User.Role role;
+    private String role;
     private List<Order> orders=new ArrayList<>();
 
 }

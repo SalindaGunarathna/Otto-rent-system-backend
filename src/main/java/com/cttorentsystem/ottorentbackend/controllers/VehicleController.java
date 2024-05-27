@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/vehicles")
+@RequestMapping("/api/admin/vehicles")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class VehicleController {
 
