@@ -31,9 +31,8 @@ public class AuthService {
         ReqRes resp = new ReqRes();
         try {
             User ourUsers = registrationRequest ;
-
             ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-
+            ourUsers.setRole("USER");
             User newUser = ourUserRepo.save(ourUsers);
 
             UserDto ourUserResult = UserMapper.mapToUserDto(newUser);

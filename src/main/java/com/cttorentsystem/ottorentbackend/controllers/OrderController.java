@@ -23,7 +23,7 @@ public class OrderController {
 
     private final  EmailService emailService;
 
-    @PostMapping
+    @PostMapping("/user/createOrder")
     public ResponseEntity<OrderDto> createOrder( @RequestBody OrderDto orderDto) {
        OrderDto newOrder = orderService.createOrder(orderDto);
 
@@ -40,7 +40,7 @@ public class OrderController {
        return  new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{orderId}")
+    @PutMapping("/user/{orderId}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable("orderId") Long orderId, @RequestBody OrderDto orderDto) {
         OrderDto updatedOrder = orderService.updateOrder(orderDto, orderId);
         if (updatedOrder != null) {
@@ -51,19 +51,19 @@ public class OrderController {
 
     }
 
-    @GetMapping("/{orderId}")
+    @GetMapping("/user/{orderId}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable("orderId") Long orderId) {
         OrderDto orderDto = orderService.getOrder(orderId);
         return ResponseEntity.ok(orderDto);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<OrderDto>> getAllOrders() {
         List<OrderDto> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 
-    @DeleteMapping("/{orderId}")
+    @DeleteMapping("/user/{orderId}")
     public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Long orderId) {
             OrderDto deletedOrder = orderService.deleteOrder(orderId);
         return ResponseEntity.ok("Order deleted successfully \n" + deletedOrder);

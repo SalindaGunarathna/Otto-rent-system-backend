@@ -37,12 +37,12 @@ public class UserControllerTest {
         // Mock the behavior of userService
         UserDto mockUserDto = new UserDto();
         mockUserDto.setFirstName("John");
-        when(userService.createUser(any(UserDto.class))).thenReturn(mockUserDto);
+        when(userService.createAdminUser(any(UserDto.class))).thenReturn(mockUserDto);
 
         // Call the controller method
         UserDto userInput = new UserDto();
         userInput.setFirstName("John");
-        ResponseEntity<UserDto> response = userController.createUser(userInput);
+        ResponseEntity<UserDto> response = userController.createAdminUser(userInput);
 
         // Verify the response
         assertEquals(HttpStatus.CREATED, response.getStatusCode());

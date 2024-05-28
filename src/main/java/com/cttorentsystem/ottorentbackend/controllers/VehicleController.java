@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/admin/vehicles")
+@RequestMapping("/api/vehicles")
 @CrossOrigin(origins = "http://localhost:3000/")
 public class VehicleController {
 
     private VehicleService  vehicleService; //VehicleService
 
-    @RequestMapping
+    @RequestMapping("/admin/addvehicle")
    public ResponseEntity<VehicleDto> createVehicle(@RequestBody VehicleDto vehicleDto) {
 
         VehicleDto saveVehicle = vehicleService.createVehicle(vehicleDto);
@@ -27,7 +27,7 @@ public class VehicleController {
         return new  ResponseEntity<> (saveVehicle, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{vehicleId}")
+    @GetMapping("/public/{vehicleId}")
     public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("vehicleId") Long vehicleId) {
 
         VehicleDto vehicleDto = vehicleService.getVehicleById(vehicleId);
@@ -35,27 +35,27 @@ public class VehicleController {
 
     }
 
-    @GetMapping
+    @GetMapping("/public/allvehicles")
     public ResponseEntity<List<VehicleDto>> getAllVehicles() {
         List<VehicleDto> vehicles = vehicleService.getAllVehicles();
         return ResponseEntity.ok(vehicles);
     }
 
-    @PostMapping("/{vehicleId}")
+    @PostMapping("/admin/{vehicleId}")
     public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("vehicleId") Long vehicleId , @RequestBody VehicleDto vehicleDto){
         VehicleDto updateVehicle  = vehicleService.updateVehicle(vehicleDto,vehicleId);
         return ResponseEntity.ok(updateVehicle);
     }
 
 
-    @DeleteMapping("/{vehicleId}")
+    @DeleteMapping("/admin/{vehicleId}")
     public ResponseEntity<String> deleteVehicle(@PathVariable("vehicleId") Long vehicleId){
         vehicleService.deleteVehicle(vehicleId);
         return ResponseEntity.ok("Vehicle deleted successfully");
     }
 
 
-    @GetMapping("/suggestVehicle")
+    @GetMapping("/public/suggestVehicle")
     public ResponseEntity<?> suggestVehicle(@RequestBody SuggestVehicleRequest suggestVehicleRequest){
 
     try {
@@ -73,7 +73,6 @@ public class VehicleController {
     }
 
     }
-
 
 
 }

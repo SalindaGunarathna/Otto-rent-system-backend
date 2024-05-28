@@ -18,7 +18,7 @@ public class ServiceDetailsController {
 
     private ServiceDetailsService serviceDetailsService;
 
-    @PostMapping
+    @PostMapping("/addServiceDetails")
     public ResponseEntity<ServiceDetailsDto> createServiceDetails(@RequestBody ServiceDetailsDto serviceDetailsDto) {
         ServiceDetailsDto saveServiceDetails = serviceDetailsService.createServiceDetails(serviceDetailsDto);
         return new ResponseEntity<>(saveServiceDetails, HttpStatus.CREATED);

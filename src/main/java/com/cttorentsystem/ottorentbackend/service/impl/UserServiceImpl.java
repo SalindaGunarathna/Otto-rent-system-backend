@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserReporsitory userReporsitory;
 
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserDto createAdminUser(UserDto userDto) {
         User user = UserMapper.mapToUser(userDto);
+        user.setRole("ADMIN");
         User saveUser = userReporsitory.save(user);
         return UserMapper.mapToUserDto(saveUser);
     }

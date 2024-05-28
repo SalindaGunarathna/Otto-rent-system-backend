@@ -40,7 +40,7 @@ public class UserServiceImplTest {
         when(userReporsitory.save(any(User.class))).thenReturn(user);
 
         // When
-        UserDto savedUserDto = userServiceImpl.createUser(userDto);
+        UserDto savedUserDto = userServiceImpl.createAdminUser(userDto);
 
         // Then
         assertNotNull(savedUserDto);

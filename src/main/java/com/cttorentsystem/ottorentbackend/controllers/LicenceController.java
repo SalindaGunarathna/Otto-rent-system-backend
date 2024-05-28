@@ -19,7 +19,7 @@ public class LicenceController {
 
 
 
-    @PostMapping
+    @PostMapping("/addlicence")
     public ResponseEntity<LicenceDto> createLicence(@RequestBody LicenceDto licenceDto) {
 
         LicenceDto saveLicence = licenceService.createLicence(licenceDto);

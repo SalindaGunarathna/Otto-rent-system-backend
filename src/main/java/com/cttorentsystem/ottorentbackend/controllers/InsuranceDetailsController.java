@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class InsuranceDetailsController {
     private InsuranceDetailsService insuranceDetailsService;
 
-    @PostMapping
+    @PostMapping("/addInsuranceDetails")
     public ResponseEntity<InsuranceDetailsDto> addInsuranceDetails( @RequestBody InsuranceDetailsDto insuranceDetailsDto) {
         InsuranceDetailsDto savedInsuranceDetails = insuranceDetailsService.addInsuranceDetails(insuranceDetailsDto);
         return new ResponseEntity<>(savedInsuranceDetails, HttpStatus.CREATED);

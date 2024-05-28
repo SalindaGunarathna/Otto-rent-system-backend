@@ -17,34 +17,34 @@ public class UserController {
     private UserService userService;
 
     //Build add user endpoint
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        UserDto saveUser = userService.createUser(userDto);
+    @PostMapping("/admin/adduser")
+    public ResponseEntity<UserDto> createAdminUser(@RequestBody UserDto userDto) {
+        UserDto saveUser = userService.createAdminUser(userDto);
         System.out.println(saveUser.getFirstName());
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
 
     //Build get user by id endpoint
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") Long userId) {
         UserDto userDto = userService.getUserById(userId);
         return ResponseEntity.ok(userDto);
     }
 
     // Get all users method
-    @GetMapping
+    @GetMapping("/admin/allusers")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/user/{userId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDto userDto) {
         UserDto updatedUser = userService.updateUser(userId, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/user/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully");
