@@ -19,19 +19,19 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long vehicleId;
     @Column(unique = true,nullable = false)
-    private String registrationNo;
+    private String registrationNo; // required to be unique
     @Column(nullable = false)
-    private String vehiclePrice;
+    private String vehiclePrice; //required
     private String chassisNumber;
     private String engineNo;
     private String vehicleState;
     private String companyName;
     @Column(nullable = false)
-    private int numberOfDoors;
+    private int numberOfDoors; //required
     @Column(nullable = false)
-    private String color;
+    private String color; //required
     @Column(nullable = false)
-    private int seatingCapacity;
+    private int seatingCapacity;//required
     private String condition;
 
     @Embedded

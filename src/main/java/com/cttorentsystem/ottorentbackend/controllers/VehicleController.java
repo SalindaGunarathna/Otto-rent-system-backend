@@ -3,6 +3,8 @@ package com.cttorentsystem.ottorentbackend.controllers;
 import com.cttorentsystem.ottorentbackend.dtos.SuggestVehicleRequest;
 import com.cttorentsystem.ottorentbackend.dtos.VehicleDto;
 import com.cttorentsystem.ottorentbackend.service.VehicleService;
+import com.cttorentsystem.ottorentbackend.validators.VehicleValidator;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +22,18 @@ public class VehicleController {
     private VehicleService  vehicleService; //VehicleService
 
     @RequestMapping("/admin/addvehicle")
-   public ResponseEntity<VehicleDto> createVehicle(@RequestBody VehicleDto vehicleDto) {
+    public ResponseEntity<?> createVehicle(@RequestBody VehicleDto vehicleDto) {
+        // Validate the required fields
+        ResponseEntity<String> validationResponse = VehicleValidator.validateVehicle(vehicleDto);
 
-        VehicleDto saveVehicle = vehicleService.createVehicle(vehicleDto);
+        if (validationResponse.getStatusCode() == HttpStatus.OK) {
+            // Return the error response if validation fails
+            VehicleDto savedVehicle = vehicleService.createVehicle(vehicleDto);
+            return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
+        }
 
-        return new  ResponseEntity<> (saveVehicle, HttpStatus.CREATED);
+        return new ResponseEntity<>(validationResponse.getBody(), validationResponse.getStatusCode());
+
     }
 
     @GetMapping("/public/{vehicleId}")
