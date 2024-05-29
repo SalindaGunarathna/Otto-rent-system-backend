@@ -6,11 +6,15 @@ import com.cttorentsystem.ottorentbackend.exception.ResourceNotFoundException;
 import com.cttorentsystem.ottorentbackend.mapper.UserMapper;
 import com.cttorentsystem.ottorentbackend.repositorys.UserReporsitory;
 import com.cttorentsystem.ottorentbackend.service.UserService;
+import com.cttorentsystem.ottorentbackend.util.JWTUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,10 +27,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserReporsitory userReporsitory;
 
+
+
+
     @Override
     public UserDto createAdminUser(UserDto userDto) {
         User user = UserMapper.mapToUser(userDto);
         user.setRole("ADMIN");
+       // user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User saveUser = userReporsitory.save(user);
         return UserMapper.mapToUserDto(saveUser);
     }

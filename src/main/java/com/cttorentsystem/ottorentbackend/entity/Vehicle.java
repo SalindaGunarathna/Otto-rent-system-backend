@@ -18,14 +18,19 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long vehicleId;
+    @Column(unique = true,nullable = false)
     private String registrationNo;
+    @Column(nullable = false)
     private String vehiclePrice;
     private String chassisNumber;
     private String engineNo;
     private String vehicleState;
     private String companyName;
+    @Column(nullable = false)
     private int numberOfDoors;
+    @Column(nullable = false)
     private String color;
+    @Column(nullable = false)
     private int seatingCapacity;
     private String condition;
 

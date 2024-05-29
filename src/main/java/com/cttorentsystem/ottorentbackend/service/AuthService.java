@@ -48,6 +48,29 @@ public class AuthService {
         return resp;
     }
 
+    public ReqRes signUpAdmin(User registrationRequest){
+        ReqRes resp = new ReqRes();
+        try {
+            User ourUsers = registrationRequest ;
+            ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            ourUsers.setRole("ADMIN");
+            User newUser = ourUserRepo.save(ourUsers);
+
+            UserDto ourUserResult = UserMapper.mapToUserDto(newUser);
+            if (ourUserResult != null && ourUserResult.getUserId()>0) {
+                resp.setOurUsers(ourUserResult);
+                resp.setMessage("User Saved Successfully");
+                resp.setStatusCode(200);
+            }
+        }catch (Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+
+
     public ReqRes signIn(ReqRes signinRequest){
         ReqRes response = new ReqRes();
 
