@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request.requestMatchers("/auth/**", "/api/vehicles/public/**").permitAll()
                         .requestMatchers("/api/vehicles/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/api/users/admin/**").permitAll()//hasAuthority("ADMIN")
+                        .requestMatchers("/api/users/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/insuranceDetails/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/licences/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/serviceDetails/**").hasAuthority("ADMIN")

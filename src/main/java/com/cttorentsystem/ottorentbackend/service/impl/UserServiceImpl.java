@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDto getUserById(Long userId) {
         User user = userReporsitory.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with id : " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id : " + userId));
+
         return UserMapper.mapToUserDto(user);
     }
 

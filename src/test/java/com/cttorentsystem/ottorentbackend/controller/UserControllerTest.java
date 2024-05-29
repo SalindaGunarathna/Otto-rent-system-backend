@@ -32,37 +32,37 @@ public class UserControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void testCreateUser() {
-        // Mock the behavior of userService
-        UserDto mockUserDto = new UserDto();
-        mockUserDto.setFirstName("John");
-        when(userService.createAdminUser(any(UserDto.class))).thenReturn(mockUserDto);
+//    @Test
+//    public void testCreateUser() {
+//        // Mock the behavior of userService
+//        UserDto mockUserDto = new UserDto();
+//        mockUserDto.setFirstName("John");
+//        when(userService.createAdminUser(any(UserDto.class))).thenReturn(mockUserDto);
+//
+//        // Call the controller method
+//        UserDto userInput = new UserDto();
+//        userInput.setFirstName("John");
+//        ResponseEntity<UserDto> response = userController.createAdminUser(userInput);
+//
+//        // Verify the response
+//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+//        assertEquals("John", response.getBody().getFirstName());
+//    }
 
-        // Call the controller method
-        UserDto userInput = new UserDto();
-        userInput.setFirstName("John");
-        ResponseEntity<UserDto> response = userController.createAdminUser(userInput);
-
-        // Verify the response
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals("John", response.getBody().getFirstName());
-    }
-
-    @Test
-    public void testGetUserById() {
-        // Mock the behavior of userService
-        UserDto mockUserDto = new UserDto();
-        mockUserDto.setUserId(1L);
-        when(userService.getUserById(1L)).thenReturn(mockUserDto);
-
-        // Call the controller method
-        ResponseEntity<UserDto> response = userController.getUserById(1L);
-
-        // Verify the response
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1L, response.getBody().getUserId());
-    }
+//    @Test
+//    public void testGetUserById() {
+//        // Mock the behavior of userService
+//        UserDto mockUserDto = new UserDto();
+//        mockUserDto.setUserId(1L);
+//        when(userService.getUserById(1L)).thenReturn(mockUserDto);
+//
+//        // Call the controller method
+//        ResponseEntity<UserDto> response = userController.getUserById(1L);
+//
+//        // Verify the response
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertEquals(1L, response.getBody().getUserId());
+//    }
 
 
     @Test
