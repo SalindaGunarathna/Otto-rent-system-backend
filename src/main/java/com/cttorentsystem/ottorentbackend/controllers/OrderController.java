@@ -1,6 +1,7 @@
 package com.cttorentsystem.ottorentbackend.controllers;
 
 
+import com.cttorentsystem.ottorentbackend.config.CheckUserAuthorization;
 import com.cttorentsystem.ottorentbackend.dtos.OrderDto;
 import com.cttorentsystem.ottorentbackend.service.EmailService;
 import com.cttorentsystem.ottorentbackend.service.OrderService;
@@ -40,9 +41,21 @@ public class OrderController {
        return  new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("/user/{orderId}")
-    public ResponseEntity<OrderDto> updateOrder(@PathVariable("orderId") Long orderId, @RequestBody OrderDto orderDto) {
-        OrderDto updatedOrder = orderService.updateOrder(orderDto, orderId);
+    @CheckUserAuthorization
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable("userId") Long userId, @RequestBody OrderDto orderDto) {
+        OrderDto updatedOrder = orderService.updateOrder(orderDto);
+        if (updatedOrder != null) {
+            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @PutMapping("/admin/updateorder")
+    public ResponseEntity<OrderDto> updateByAdminOrder( @RequestBody OrderDto orderDto) {
+        OrderDto updatedOrder = orderService.updateOrder(orderDto);
         if (updatedOrder != null) {
             return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
         } else {
@@ -63,10 +76,18 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
-    @DeleteMapping("/user/{orderId}")
-    public ResponseEntity<String> deleteOrder(@PathVariable("orderId") Long orderId) {
+    @CheckUserAuthorization
+    @DeleteMapping("/user/{orderId}/{userId}")
+    public ResponseEntity<String> deleteOrder( @PathVariable("userId") Long userId, @PathVariable("orderId") Long orderId) {
             OrderDto deletedOrder = orderService.deleteOrder(orderId);
+        return ResponseEntity.ok("Order deleted successfully \n" + deletedOrder.getOrderId());
+    }
+
+    @DeleteMapping("/admin/{orderId}")
+    public ResponseEntity<String> deleteOrderByAdmin(@PathVariable("orderId") Long orderId) {
+        OrderDto deletedOrder = orderService.deleteOrder(orderId);
         return ResponseEntity.ok("Order deleted successfully \n" + deletedOrder);
     }
+
 
 }

@@ -40,7 +40,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/serviceDetails/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/orders/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")
-                        .requestMatchers("/api/users/user/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/api/orders/user/**").hasAnyAuthority("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

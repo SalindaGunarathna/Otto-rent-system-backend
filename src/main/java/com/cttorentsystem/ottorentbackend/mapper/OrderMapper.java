@@ -6,7 +6,6 @@ import com.cttorentsystem.ottorentbackend.entity.Order;
 public class OrderMapper {
 
     public static OrderDto mapToOrderDto(Order order) {
-
         return new OrderDto(
                 order.getOrderId(),
                 order.getOrderFee(),
@@ -21,12 +20,11 @@ public class OrderMapper {
                 order.getNoOfLuggages(),
                 order.getDescription(),
                 order.getVehicles(),
-                order.getCustomer()
+                UserMapper.mapToUserDto(order.getCustomer()) // Convert User to UserDto
         );
     }
 
     public static Order mapToOrder(OrderDto orderDto) {
-
         return new Order(
                 orderDto.getOrderId(),
                 orderDto.getOrderFee(),
@@ -41,7 +39,7 @@ public class OrderMapper {
                 orderDto.getNoOfLuggages(),
                 orderDto.getDescription(),
                 orderDto.getVehicles(),
-                orderDto.getCustomer()
+                UserMapper.mapToUser(orderDto.getCustomer()) // Convert UserDto to User
         );
     }
 }

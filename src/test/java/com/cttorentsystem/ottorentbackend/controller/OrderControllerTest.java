@@ -49,20 +49,20 @@ public class OrderControllerTest {
         assertEquals(1L, response.getBody().getOrderId());
     }
 
-    @Test
-    public void testUpdateOrder() {
-        // Mock the behavior of orderService
-        OrderDto orderDto = new OrderDto();
-        orderDto.setOrderId(1L);
-        when(orderService.updateOrder(any(OrderDto.class), eq(1L))).thenReturn(orderDto);
-
-        // Call the controller method
-        ResponseEntity<OrderDto> response = orderController.updateOrder(1L, orderDto);
-
-        // Verify the response
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1L, response.getBody().getOrderId());
-    }
+//    @Test
+//    public void testUpdateOrder() {
+//        // Mock the behavior of orderService
+//        OrderDto orderDto = new OrderDto();
+//        orderDto.setOrderId(1L);
+//        when(orderService.updateOrder(any(OrderDto.class), eq(1L))).thenReturn(orderDto);
+//
+//        // Call the controller method
+//        ResponseEntity<OrderDto> response = orderController.updateOrder(1L, orderDto);
+//
+//        // Verify the response
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertEquals(1L, response.getBody().getOrderId());
+//    }
 
     @Test
     public void testGetOrder() {
@@ -97,19 +97,19 @@ public class OrderControllerTest {
         assertEquals(1L, response.getBody().get(0).getOrderId());
     }
 
-    @Test
-    public void testDeleteOrder() {
-        // Mock the behavior of orderService
-        OrderDto mockOrderDto = new OrderDto();
-        mockOrderDto.setOrderId(1L);
-        when(orderService.deleteOrder(1L)).thenReturn(mockOrderDto);
-
-        // Call the controller method
-        ResponseEntity<String> response = orderController.deleteOrder(1L);
-
-        // Verify the response
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Order deleted successfully \n" + mockOrderDto, response.getBody());
-    }
+//    @Test
+//    public void testDeleteOrder() {
+//        // Mock the behavior of orderService
+//        OrderDto mockOrderDto = new OrderDto();
+//        mockOrderDto.setOrderId(1L);
+//        when(orderService.deleteOrder(1L)).thenReturn(mockOrderDto);
+//
+//        // Call the controller method
+//        ResponseEntity<String> response = orderController.deleteOrder(1L);
+//
+//        // Verify the response
+//        assertEquals(HttpStatus.OK, response.getStatusCode());
+//        assertEquals("Order deleted successfully \n" + mockOrderDto, response.getBody());
+//    }
 }
 

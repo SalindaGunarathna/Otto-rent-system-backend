@@ -48,12 +48,14 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @CheckUserAuthorization
     @PutMapping("/user/{userId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDto userDto) {
         UserDto updatedUser = userService.updateUser(userId, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 
+    @CheckUserAuthorization
     @DeleteMapping("/user/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId) {
         userService.deleteUser(userId);

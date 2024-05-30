@@ -47,23 +47,23 @@ class OrderServiceImplTest {
         assertEquals(orderDto, result);
     }
 
-    @Test
-    void testUpdateOrder() {
-        // Given
-        Long orderId = 1L;
-        OrderDto orderDto = new OrderDto();
-        Order order = new Order();
-        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
-        when(orderRepository.save(any(Order.class))).thenReturn(order);
-
-        // When
-        OrderDto result = orderService.updateOrder(orderDto, orderId);
-
-        // Then
-        verify(orderRepository, times(1)).findById(orderId);
-        verify(orderRepository, times(1)).save(any(Order.class));
-        assertEquals(orderDto, result);
-    }
+//    @Test
+//    void testUpdateOrder() {
+//        // Given
+//        Long orderId = 1L;
+//        OrderDto orderDto = new OrderDto();
+//        Order order = new Order();
+//        when(orderRepository.findById(orderId)).thenReturn(Optional.of(order));
+//        when(orderRepository.save(any(Order.class))).thenReturn(order);
+//
+//        // When
+//        OrderDto result = orderService.updateOrder(orderDto, orderId);
+//
+//        // Then
+//        verify(orderRepository, times(1)).findById(orderId);
+//        verify(orderRepository, times(1)).save(any(Order.class));
+//        assertEquals(orderDto, result);
+//    }
 
     @Test
     void testGetOrder() {

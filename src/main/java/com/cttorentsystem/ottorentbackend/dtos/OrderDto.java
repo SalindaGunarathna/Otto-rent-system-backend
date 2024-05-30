@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderDto {
     private Long orderId;
     private int orderFee;
-    private String Destination;
+    private String destination;
     private int distance;
     private Date pickupDate;
     private String pickupTime;
@@ -31,5 +31,5 @@ public class OrderDto {
 
     private Vehicle vehicles;
 
-    private User customer;
+    private UserDto customer;
 }
