@@ -28,6 +28,8 @@ public class SecurityConfig {
     @Autowired
     private JWTAuthFIlter jwtAuthFIlter;
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)

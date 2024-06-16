@@ -1,7 +1,9 @@
 package com.cttorentsystem.ottorentbackend.util;
 
+import com.cttorentsystem.ottorentbackend.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +17,22 @@ import java.util.function.Function;
 
 @Component
 public class JWTUtils {
+    @Value("${jwt.secret-key}")
+    private String secretString;
 
     private SecretKey Key;
     private  static  final long EXPIRATION_TIME = 86400000; //24hours or 86400000 milisecs
-    public JWTUtils(){
-        String secreteString = "843567893696976453275974432697R634976R738467TR678T34865R6834R8763T478378637664538745673865783678548735687R3";
+    public JWTUtils(@Value("${jwt.secret-key}") String secretString){
+        System.out.println(secretString);
+        String secreteString = secretString;
         byte[] keyBytes = Base64.getDecoder().decode(secreteString.getBytes(StandardCharsets.UTF_8));
         this.Key = new SecretKeySpec(keyBytes, "HmacSHA256");
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(User userDetails){
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .claim("userId", userDetails.getUserId())
                 .claim("role", userDetails.getAuthorities()) // Add role information
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
