@@ -43,26 +43,27 @@ pipeline{
             }
         }
 
-        stage('Build Docker Image'){
-            steps{
-                script{
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    
                     dockerImage = docker.build("${env.DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
                 }
             }
         }
 
-        stage('Push Docker Image to Docker Hub'){
-            steps{
+        stage('Push Docker Image to Docker Hub') {
+            steps {
                 script {
-                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                        dockerImage.push("${env.BUILD_ID}")
+                   
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                        dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
                     }
-                }  
-                
+                }
             }
-                
         }
+
         
         stage('Make Image to publish'){
             steps{
