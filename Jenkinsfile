@@ -10,7 +10,7 @@ pipeline{
 
 
     environment {
-        DOCKER_CREDENTIALS_ID = credentials('dockerhub')
+        DOCKER_CREDENTIALS_ID = 'dockerhub'
         DOCKER_HUB_REPO = 'salindadocker/otto-rent-backend'
         EC2_SSH_KEY = credentials('host-instace-keypair-id')
         EC2_HOST = '34.207.252.195'
