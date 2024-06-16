@@ -10,7 +10,7 @@ pipeline{
 
 
     environment {
-        DOCKER_HUB_CREDENTIALS = 'dockerhub'
+        DOCKER_CREDENTIALS_ID = credentials('dockerhub')
         DOCKER_HUB_REPO = 'salindadocker/otto-rent-backend'
         EC2_SSH_KEY = credentials('host-instace-keypair-id')
         EC2_HOST = '34.207.252.195'
@@ -53,15 +53,17 @@ pipeline{
 
         stage('Push Docker Image to Docker Hub'){
             steps{
-                script{
-                    docker.withRegistry('', 'DOCKER_HUB_CREDENTIALS'){   
-                        dockeImage.push("${env.BUILD_ID}")
-                        dockeImage.push("latest")
-                        
+                script {
+                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                        dockerImage.push("${env.BUILD_ID}")
+                        dockerImage.push("latest")
                     }
-                }
+                }  
+                
             }
+                
         }
+        
         stage('Make Image to publish'){
             steps{
                 script{
