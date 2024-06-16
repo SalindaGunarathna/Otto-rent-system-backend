@@ -8,6 +8,15 @@ pipeline{
         maven "Maven3"
     }
 
+
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'dockerhub'
+        DOCKER_HUB_REPO = 'salindadocker/otto-rent-backend'
+        EC2_SSH_KEY = credentials('host-instace-keypair-id')
+        EC2_HOST = '34.207.252.195'
+        DOCKERHUB_API_URL = "https://hub.docker.com/v2/repositories/${DOCKERHUB_REPO}/"
+    }
+
     stages{
 
         stage("Clean Workspace"){
@@ -18,7 +27,7 @@ pipeline{
 
         stage('Checkout'){
             steps{
-                git branch: 'main',credentialsId: 'github', url: 'https://github.com/SalindaGunarathna/Jenkins-Pipeline02-Spring-Boot-project'
+                git branch: 'main',credentialsId: 'github', url: 'https://github.com/SalindaGunarathna/Otto-rent-system-backend.git'
             }
         }
 
@@ -33,6 +42,63 @@ pipeline{
                 sh 'mvn test' 
             }
         }
+
+        stage('Build Docker Image'){
+            steps{
+                script{
+                    dockeImage = docker.build("${env.DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Push Docker Image to Docker Hub'){
+            steps{
+                script{
+                    docker.withRegistry('', 'DOCKER_HUB_CREDENTIALS'){   
+                        dockeImage.push("${env.BUILD_ID}")
+                        dockeImage.push("latest")
+                        
+                    }
+                }
+            }
+        }
+        stage('Make Image to publish'){
+            steps{
+                script{
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN')]) {
+                        sh """
+                        curl -u $DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN \
+                             -X PATCH \
+                             -H "Content-Type: application/json" \
+                             -d '{"is_private": false}' \
+                              $DOCKERHUB_API_URL
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to EC2'){
+            steps{
+                script{
+                    sshagent(['EC2_SSH_KEY']) {
+
+                       sh """
+                       ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
+                       sudo docker pull ${DOCKER_HUB_REPO}:latest &&
+                       sudo docker stop otto-rent-backend || true &&
+                       sudo docker rm otto-rent-backend || true &&
+                       sudo docker run -d -p 8080:8080 --name otto-rent-backend ${DOCKER_HUB_REPO}:latest
+                    '
+                    """
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 
 }

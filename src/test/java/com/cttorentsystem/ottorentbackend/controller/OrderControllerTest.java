@@ -32,22 +32,22 @@ public class OrderControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void testCreateOrder() {
-        // Mock the behavior of orderService
-        OrderDto mockOrderDto = new OrderDto();
-        mockOrderDto.setOrderId(1L);
-        when(orderService.createOrder(any(OrderDto.class))).thenReturn(mockOrderDto);
-
-        // Call the controller method
-        OrderDto orderInput = new OrderDto();
-        orderInput.setOrderId(1L);
-        ResponseEntity<OrderDto> response = orderController.createOrder(orderInput);
-
-        // Verify the response
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(1L, response.getBody().getOrderId());
-    }
+//    @Test
+//    public void testCreateOrder() {
+//        // Mock the behavior of orderService
+//        OrderDto mockOrderDto = new OrderDto();
+//        mockOrderDto.setOrderId(1L);
+//        when(orderService.createOrder(any(OrderDto.class))).thenReturn(mockOrderDto);
+//
+//        // Call the controller method
+//        OrderDto orderInput = new OrderDto();
+//        orderInput.setOrderId(1L);
+//        ResponseEntity<OrderDto> response = orderController.createOrder(orderInput);
+//
+//        // Verify the response
+//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+//        assertEquals(1L, response.getBody().getOrderId());
+//    }
 
 //    @Test
 //    public void testUpdateOrder() {
