@@ -12,9 +12,9 @@ pipeline{
     environment {
         DOCKER_CREDENTIALS_ID = 'dockerhub'
         DOCKER_HUB_REPO = 'salindadocker/otto-rent-backend'
-        EC2_SSH_KEY = credentials('host-instace-keypair-id')
-        EC2_HOST = '34.204.43.159'
-        DOCKERHUB_API_URL = "https://hub.docker.com/v2/repositories/${DOCKERHUB_REPO}/"
+        EC2_SSH_KEY = 'host-instace-keypair-id'
+        EC2_HOST_IP = '34.204.43.159'
+        DOCKERHUB_API_URL = "https://hub.docker.com/v2/repositories/salindadocker/otto-rent-backend/"
     }
 
     stages{
@@ -65,35 +65,23 @@ pipeline{
         }
 
         
-        stage('Make Image to publish'){
-            steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN')]) {
-                        sh """
-                        curl -u $DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN \
-                             -X PATCH \
-                             -H "Content-Type: application/json" \
-                             -d '{"is_private": false}' \
-                              $DOCKERHUB_API_URL
-                        """
-                    }
-                }
-            }
-        }
 
         stage('Deploy to EC2'){
             steps{
-                script{
-                    sshagent(['EC2_SSH_KEY']) {
+                script {
+                    withCredentials([
+                        sshUserPrivateKey(credentialsId: EC2_SSH_KEY, keyFileVariable: 'SSH_KEY'),
 
-                       sh """
-                       ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
-                       sudo docker pull ${DOCKER_HUB_REPO}:latest &&
-                       sudo docker stop otto-rent-backend || true &&
-                       sudo docker rm otto-rent-backend || true &&
-                       sudo docker run -d -p 8080:8080 --name otto-rent-backend ${DOCKER_HUB_REPO}:latest
-                    '
-                    """
+                    ]) {
+
+                        sh """
+                        ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no ubuntu@${EC2_HOST_IP} '
+                            sudo docker pull ${DOCKER_HUB_REPO}:latest
+                            sudo docker stop otto-rent-backend || true
+                            sudo docker rm otto-rent-backend || true
+                            sudo docker run -d -p 8080:8080 --name otto-rent-backend ${DOCKER_HUB_REPO}:latest
+                        '
+                        """
                     }
                 }
             }
