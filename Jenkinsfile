@@ -13,7 +13,7 @@ pipeline{
         DOCKER_CREDENTIALS_ID = 'dockerhub'
         DOCKER_HUB_REPO = 'salindadocker/otto-rent-backend'
         EC2_SSH_KEY = credentials('host-instace-keypair-id')
-        EC2_HOST = '34.207.252.195'
+        EC2_HOST = '34.204.43.159'
         DOCKERHUB_API_URL = "https://hub.docker.com/v2/repositories/${DOCKERHUB_REPO}/"
     }
 
