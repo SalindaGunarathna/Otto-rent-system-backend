@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/vehicles")
-@CrossOrigin(origins = "http://localhost:3000/")
 public class VehicleController {
 
     private VehicleService  vehicleService; //VehicleService
