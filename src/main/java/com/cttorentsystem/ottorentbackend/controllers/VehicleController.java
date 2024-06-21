@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/vehicles")
+
 public class VehicleController {
 
     private VehicleService  vehicleService; //VehicleService
