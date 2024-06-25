@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     private UserReporsitory userReporsitory;
     @Override
+    @Transactional
     public OrderDto createOrder(OrderDto orderDto) {
 
         Order order = OrderMapper.mapToOrder(orderDto);
@@ -58,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public OrderDto getOrder(Long orderId) {
 
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
@@ -101,4 +104,13 @@ public class OrderServiceImpl implements OrderService {
 
 
     }
+
+    @Override
+    public List<OrderDto> getOrdersByUserId(Long userId) {
+
+           List<Order> orders = orderRepository.findByCustomerUserId(userId);
+           return orders.stream().map(OrderMapper::mapToOrderDto).toList();
+    }
+
+
 }

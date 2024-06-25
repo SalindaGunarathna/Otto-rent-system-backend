@@ -35,12 +35,12 @@ public class Order {
     private String description;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicles;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer", referencedColumnName = "user_id")
     @JsonIgnore
     private User customer;

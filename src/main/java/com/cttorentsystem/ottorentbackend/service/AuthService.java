@@ -37,9 +37,12 @@ public class AuthService {
 
             UserDto ourUserResult = UserMapper.mapToUserDto(newUser);
             if (ourUserResult != null && ourUserResult.getUserId()>0) {
-                resp.setOurUsers(ourUserResult);
+                var jwt = jwtUtils.generateToken(ourUsers);
+                resp.setUser(ourUserResult);
                 resp.setMessage("User Saved Successfully");
                 resp.setStatusCode(200);
+                resp.setToken(jwt);
+
             }
         }catch (Exception e){
             resp.setStatusCode(500);
@@ -58,8 +61,10 @@ public class AuthService {
 
             UserDto ourUserResult = UserMapper.mapToUserDto(newUser);
             if (ourUserResult != null && ourUserResult.getUserId()>0) {
-                resp.setOurUsers(ourUserResult);
-                resp.setMessage("User Saved Successfully");
+                var jwt = jwtUtils.generateToken(ourUsers);
+                resp.setToken(jwt);
+                resp.setUser(ourUserResult);
+                resp.setMessage("Admin Saved Successfully");
                 resp.setStatusCode(200);
             }
         }catch (Exception e){
@@ -77,9 +82,10 @@ public class AuthService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(),signinRequest.getPassword()));
             var user = ourUserRepo.findByEmail(signinRequest.getEmail()).orElseThrow();
-            System.out.println("USER IS: "+ user);
+            System.out.println("USER IS: "+ user.getEmail());
             var jwt = jwtUtils.generateToken(user);
             var refreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
+            response.setUser(UserMapper.mapToUserDto(user));
             response.setStatusCode(200);
             response.setToken(jwt);
             response.setRefreshToken(refreshToken);

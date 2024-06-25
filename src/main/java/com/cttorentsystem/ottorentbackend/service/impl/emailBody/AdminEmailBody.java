@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class AdminEmailBody implements EmailBodyGenerator {
     @Override
     public String generateEmailBody(OrderDto order) {
+
+
         String emailBody = String.format(
                 "Dear %s,%n%n" +
                         "We are pleased to inform you that a new vehicle order has been received. Here are the details:%n%n" +

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderService {
 
-     OrderDto createOrder(OrderDto orderDto);
+    OrderDto createOrder(OrderDto orderDto);
 
 
 
@@ -17,4 +17,6 @@ public interface OrderService {
      List<OrderDto> getAllOrders();
 
      OrderDto deleteOrder(Long orderId);
+
+     List<OrderDto> getOrdersByUserId(Long userId);
 }

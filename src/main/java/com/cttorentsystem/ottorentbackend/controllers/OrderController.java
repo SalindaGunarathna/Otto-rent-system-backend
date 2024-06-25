@@ -27,19 +27,29 @@ public class OrderController {
 
     @PostMapping("/user/createOrder")
     public ResponseEntity<OrderDto> createOrder( @RequestBody OrderDto orderDto) {
-       OrderDto newOrder = orderService.createOrder(orderDto);
+        OrderDto newOrder = orderService.createOrder(orderDto);
+
+        OrderDto newOrderDto = null;
+
+        try {
+            newOrderDto = orderService.getOrder(newOrder.getOrderId());
+            System.out.println(newOrderDto.getCustomer().getFirstName());
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+        EmailController ownerEmailController = new EmailController("Admin-orderUpdate");
+        String emailBody = ownerEmailController.generateEmailBody(newOrderDto);
+        emailService.sendEmail("salindalakshan99@gmail.com", "New Rent Order", emailBody);
+
+        EmailController customerEmailController = new EmailController("Customer");
+        String customerEmailBody = customerEmailController.generateEmailBody(newOrderDto);
+        emailService.sendEmail("salinda.eng@gmail.com", "New Rent Order", customerEmailBody);
 
 
-       EmailController ownerEmailController = new  EmailController("Admin-orderUpdate");
-       String emailBody = ownerEmailController.generateEmailBody(newOrder);
-       emailService.sendEmail("salindalakshan99@gmail.com", "New Rent Order", emailBody);
-
-       EmailController customerEmailController = new  EmailController("Customer");
-       String customerEmailBody = customerEmailController.generateEmailBody(newOrder);
-       emailService.sendEmail("salinda.eng@gmail.com", "New Rent Order", customerEmailBody);
-
-
-       return  new ResponseEntity<>(newOrder, HttpStatus.CREATED);
+        return new ResponseEntity<>(newOrderDto, HttpStatus.CREATED);
     }
 
     @CheckUserAuthorization
@@ -89,6 +99,13 @@ public class OrderController {
         OrderDto deletedOrder = orderService.deleteOrder(orderId);
         return ResponseEntity.ok("Order deleted successfully \n" + deletedOrder);
     }
+
+    @GetMapping("/user/finduserorders/{userId}")
+    public ResponseEntity<List<OrderDto>> getOrdersByUserId(@PathVariable("userId") Long userId) {
+        List<OrderDto> orders = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(orders);
+    }
+
 
 
 }

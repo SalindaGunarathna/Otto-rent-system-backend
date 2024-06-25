@@ -23,5 +23,5 @@ public class ReqRes {
     private String email;
     private String role;
     private String password;
-    private UserDto ourUsers;
+    private UserDto user;
 }

@@ -1,10 +1,6 @@
 package com.cttorentsystem.ottorentbackend.service;
 
 
-
-
-
-
 import com.cttorentsystem.ottorentbackend.exception.UnauthorizedException;
 import com.cttorentsystem.ottorentbackend.util.JWTUtils;
 import lombok.AllArgsConstructor;
@@ -17,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AuthorizationService {
 
     private final JWTUtils jwtUtils;
+
 
     public void authorizeUser(HttpServletRequest request, String userEmail) {
         String token = request.getHeader("Authorization").substring(7); // Remove "Bearer " prefix
