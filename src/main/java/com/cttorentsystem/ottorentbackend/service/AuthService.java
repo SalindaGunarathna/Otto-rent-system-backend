@@ -38,10 +38,12 @@ public class AuthService {
             UserDto ourUserResult = UserMapper.mapToUserDto(newUser);
             if (ourUserResult != null && ourUserResult.getUserId()>0) {
                 var jwt = jwtUtils.generateToken(ourUsers);
-                resp.setUser(ourUserResult);
+               // resp.setUser(ourUserResult);
                 resp.setMessage("User Saved Successfully");
                 resp.setStatusCode(200);
                 resp.setToken(jwt);
+                resp.setRole(ourUsers.getRole());
+                resp.setUserId(ourUsers.getUserId());
 
             }
         }catch (Exception e){
@@ -63,9 +65,11 @@ public class AuthService {
             if (ourUserResult != null && ourUserResult.getUserId()>0) {
                 var jwt = jwtUtils.generateToken(ourUsers);
                 resp.setToken(jwt);
-                resp.setUser(ourUserResult);
+               // resp.setUser(ourUserResult);
                 resp.setMessage("Admin Saved Successfully");
                 resp.setStatusCode(200);
+                resp.setRole(ourUsers.getRole());
+                resp.setUserId(ourUsers.getUserId());
             }
         }catch (Exception e){
             resp.setStatusCode(500);
@@ -85,12 +89,14 @@ public class AuthService {
             System.out.println("USER IS: "+ user.getEmail());
             var jwt = jwtUtils.generateToken(user);
             var refreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
-            response.setUser(UserMapper.mapToUserDto(user));
+           // response.setUser(UserMapper.mapToUserDto(user));
             response.setStatusCode(200);
             response.setToken(jwt);
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24Hr");
             response.setMessage("Successfully Signed In");
+            response.setRole(user.getRole());
+            response.setUserId(user.getUserId());
         }catch (Exception e){
             response.setStatusCode(500);
             response.setError(e.getMessage());
