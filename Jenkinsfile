@@ -15,6 +15,7 @@ pipeline{
         EC2_SSH_KEY = 'host-instace-keypair-id'
         EC2_HOST_IP = '34.204.43.159'
         DOCKERHUB_API_URL = "https://hub.docker.com/v2/repositories/salindadocker/otto-rent-backend/"
+        JENKINS_API_TOKEN = 'JENKINS_API_TOKEN'
     }
 
     stages{
@@ -42,12 +43,12 @@ pipeline{
                 sh 'mvn test' 
             }
         }
-
+        
         stage('Build Docker Image') {
             steps {
                 script {
                     
-                    dockerImage = docker.build("${env.DOCKER_HUB_REPO}:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${env.DOCKER_HUB_REPO}:28.${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -57,37 +58,20 @@ pipeline{
                 script {
                    
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("22.${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
                     }
                 }
             }
         }
 
-        
-
-        stage('Deploy to EC2'){
-            steps{
+        stage("Trigger CD Pipeline") {
+            steps {
                 script {
-                    withCredentials([
-                        sshUserPrivateKey(credentialsId: EC2_SSH_KEY, keyFileVariable: 'SSH_KEY'),
-
-                    ]) {
-
-                        sh """
-                        ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no ubuntu@${EC2_HOST_IP} '
-                            sudo docker pull ${DOCKER_HUB_REPO}:latest
-                            sudo docker stop otto-rent-backend || true
-                            sudo docker rm otto-rent-backend || true
-                            sudo docker run -d -p 8080:8080 --name otto-rent-backend ${DOCKER_HUB_REPO}:latest
-                        '
-                        """
-                    }
+                    sh "curl -v -k --user Gunarathna:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=22.${env.BUILD_NUMBER}' 'ec2-34-226-202-158.compute-1.amazonaws.com:8080/job/rent system deplyment ArgoCD-CD/buildWithParameters?token=trigger-key'"
                 }
             }
-        }
-
-
+       }
 
 
     }

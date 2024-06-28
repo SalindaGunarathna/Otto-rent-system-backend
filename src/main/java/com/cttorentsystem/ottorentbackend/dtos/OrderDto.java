@@ -28,6 +28,7 @@ public class OrderDto {
     private int noOfPassengers;
     private int noOfLuggages;
     private String description;
+    private String fromAddress;
 
     private Vehicle vehicles;
 

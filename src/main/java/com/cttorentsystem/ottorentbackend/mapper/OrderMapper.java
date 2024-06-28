@@ -19,6 +19,7 @@ public class OrderMapper {
                 order.getNoOfPassengers(),
                 order.getNoOfLuggages(),
                 order.getDescription(),
+                order.getFromAddress(),
                 order.getVehicles(),
                 UserMapper.mapToUserDto(order.getCustomer()) // Convert User to UserDto
         );
@@ -38,6 +39,7 @@ public class OrderMapper {
                 orderDto.getNoOfPassengers(),
                 orderDto.getNoOfLuggages(),
                 orderDto.getDescription(),
+                orderDto.getFromAddress(),
                 orderDto.getVehicles(),
                 UserMapper.mapToUser(orderDto.getCustomer()) // Convert UserDto to User
         );

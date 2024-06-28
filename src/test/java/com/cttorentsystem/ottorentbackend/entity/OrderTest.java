@@ -31,8 +31,9 @@ public class OrderTest {
         User customer = new User();
 
         // When
+        String fromAddress = "Test Address";
         Order order = new Order(orderId, orderFee, destination, distance, pickupDate, pickupTime, orderStatus,
-                paymentStatus, rentalDates, noOfPassengers, noOfLuggages, description, vehicle, customer);
+                paymentStatus, rentalDates, noOfPassengers, noOfLuggages, description,fromAddress, vehicle, customer);
 
         // Then
         assertNotNull(order);

@@ -33,6 +33,7 @@ public class Order {
     private int noOfPassengers;
     private int noOfLuggages;
     private String description;
+    private String fromAddress;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
