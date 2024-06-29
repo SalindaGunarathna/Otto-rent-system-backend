@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-        label "jenkins-agent"
-    }
+    agent any
 
     tools{
         jdk 'Java17'
@@ -48,7 +46,7 @@ pipeline{
             steps {
                 script {
                     
-                    dockerImage = docker.build("${env.DOCKER_HUB_REPO}:28.${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${env.DOCKER_HUB_REPO}:23.${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -58,7 +56,7 @@ pipeline{
                 script {
                    
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
-                        dockerImage.push("22.${env.BUILD_NUMBER}")
+                        dockerImage.push("23.${env.BUILD_NUMBER}")
                         dockerImage.push("latest")
                     }
                 }
