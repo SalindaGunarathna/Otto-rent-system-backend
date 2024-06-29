@@ -1,5 +1,5 @@
 #	Vehicle Rent System
-update new test
+update new test new
 Contribution:  Back-End development -Salinda Gunarathna
 ## Overview
 The Vehicle Rent System is a real-world application designed to manage the rental of vehicles. This project leverages modern technologies and follows best practices to deliver a robust, scalable, and secure system. The system includes features such as CRUD operations for all entities, data validation, authentication, authorization, notifications, auto-trigger functionality, a search system, and vehicle suggestions.
